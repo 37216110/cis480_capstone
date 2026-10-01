@@ -7,7 +7,7 @@ raw AI4I Predictive Maintenance Dataset.
 
 | Variable | Data Type | Unit | Description | Example |
 |---|---|---|---|---|
-| UID | int64 | - | Unique identifier for each observation, ranging from 1 to 10,000. | 7866 |
+| UDI | int64 | - | Unique identifier for each observation, ranging from 1 to 10,000. | 7866 |
 | Product ID | str | - | Unique product identifier containing a quality-class prefix (L, M, or H) followed by a product-specific serial number. | L55045 |
 | Type | str | - | Product quality variant: L = low, M = medium, H = high. | L |
 | Air temperature [K] | float64 | Kelvin | Ambient air temperature associated with the observation. | 300.5 |
