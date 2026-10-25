@@ -7,6 +7,9 @@ INPUT_CSV = PROJECT_ROOT / 'data' / 'raw' / 'ai4i2020.csv'
 OUTPUT_DIR = PROJECT_ROOT / 'data' / 'cleaned'
 CLEAN_CSV = OUTPUT_DIR / 'ai4i2020_cleaned.csv'
 MODEL_CSV = OUTPUT_DIR / 'ai4i2020_modeling.csv'
+NO_INCONSISTENT_CSV = OUTPUT_DIR / 'ai4i2020_no_inconsistent.csv'
+MODEL_AND_NO_INCONSISTENT_CSV = OUTPUT_DIR / \
+    'ai4i2020_modeling_no_inconsistent.csv'
 
 FAILURE_COLS = ['TWF', 'HDF', 'PWF', 'OSF', 'RNF']
 BINARY_COLS = ['Machine failure', *FAILURE_COLS]
@@ -35,11 +38,6 @@ def clean_data(df_raw: pd.DataFrame) -> pd.DataFrame:
         if not df[col].isin([0, 1]).all():
             raise ValueError(f'{col} must contain only 0 or 1.')
 
-    inconsistent = df[TARGET].ne(df[FAILURE_COLS].max(axis=1))
-    print(f'Original rows: {len(df):,}')
-    print(f'Inconsistent failure labels removed: {inconsistent.sum():,}')
-    df = df.loc[~inconsistent].copy().reset_index(drop=True)
-
     if not df['Type'].isin(['L', 'M', 'H']).all():
         raise ValueError('Unexpected product Type.')
     for col in ['UDI', 'Product ID']:
@@ -51,13 +49,25 @@ def clean_data(df_raw: pd.DataFrame) -> pd.DataFrame:
     for col in ['Torque [Nm]', 'Tool wear [min]']:
         if not (df[col] >= 0).all():
             raise ValueError(f'{col} cannot be negative.')
-    assert df[TARGET].eq(df[FAILURE_COLS].max(axis=1)).all()
+
     assert not df.isna().any().any()
     assert not df.duplicated().any()
     print(f'Cleaned rows: {len(df):,}; columns: {df.shape[1]}')
     print('Failure distribution:')
     print(df[TARGET].value_counts().sort_index().to_string())
     return df
+
+
+def remove_inconsistent_rows(df: pd.DataFrame) -> pd.DataFrame:
+    inconsistent = df[TARGET].ne(df[FAILURE_COLS].max(axis=1))
+
+    df_no_inconsistent = df.loc[~inconsistent].copy().reset_index(drop=True)
+
+    assert df_no_inconsistent[TARGET].eq(
+        df_no_inconsistent[FAILURE_COLS].max(axis=1)).all()
+
+    print(f'Inconsistent failure labels removed: {inconsistent.sum():,}')
+    return df_no_inconsistent
 
 
 def main():
@@ -68,6 +78,16 @@ def main():
     df_clean[[*PREDICTORS, TARGET]].to_csv(MODEL_CSV, index=False)
     print(f'Cleaned dataset saved to: {CLEAN_CSV}')
     print(f'Modeling dataset saved to: {MODEL_CSV}')
+
+    df_inconsistent_removed = remove_inconsistent_rows(df_clean)
+    df_inconsistent_removed.to_csv(NO_INCONSISTENT_CSV, index=False)
+
+    df_inconsistent_removed[[*PREDICTORS, TARGET]
+                            ].to_csv(MODEL_AND_NO_INCONSISTENT_CSV, index=False)
+    print(
+        f'Cleaned dataset with no inconsistent labels saved to: {NO_INCONSISTENT_CSV}')
+    print(
+        f'Modeling dataset with no inconsistent labels saved to: {MODEL_AND_NO_INCONSISTENT_CSV}')
 
 
 if __name__ == '__main__':

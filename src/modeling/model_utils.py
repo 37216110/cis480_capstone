@@ -42,6 +42,26 @@ def load_clean_data(root=None, filename="ai4i2020_cleaned.csv"):
         raise ValueError("Target must be binary (0/1)")
     if not df["Type"].isin(["L", "M", "H"]).all():
         raise ValueError("Unexpected Type value")
+
+    return df
+
+
+def load_clean_no_inconsistent_data(root=None, filename="ai4i2020_no_inconsistent.csv"):
+    root = Path(root) if root is not None else project_root()
+    path = root / "data" / "cleaned" / filename
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Cleaned dataset missing: {path}. Run the cleaning script first.")
+    df = pd.read_csv(path)
+    missing = set(PREDICTORS + [TARGET]) - set(df.columns)
+    if missing:
+        raise ValueError(f"Missing required columns: {sorted(missing)}")
+    if df[PREDICTORS + [TARGET]].isna().any().any():
+        raise ValueError("Missing values in predictors or target")
+    if not df[TARGET].isin([0, 1]).all():
+        raise ValueError("Target must be binary (0/1)")
+    if not df["Type"].isin(["L", "M", "H"]).all():
+        raise ValueError("Unexpected Type value")
     if set(FAILURE_FLAGS).issubset(df.columns):
         if not df[TARGET].eq(df[FAILURE_FLAGS].max(axis=1)).all():
             raise ValueError(
