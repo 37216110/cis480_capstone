@@ -108,3 +108,16 @@ def evaluate_classifier(model, X_test, y_test, threshold=0.5):
         "Average Precision (PR-AUC)": average_precision_score(y_test, probabilities),
     }
     return pd.DataFrame({"Metric": list(scores), "Score": list(scores.values())}), predictions, probabilities
+
+
+def validate_machine_inputs(sample):
+    wear = sample["Tool wear [min]"].iloc[0]
+    torque = sample["Torque [Nm]"].iloc[0]
+
+    if not 0 <= wear <= 253:
+        raise ValueError("Tool wear outside observed range (0-253)")
+
+    if not 3.8 <= torque <= 76.6:
+        raise ValueError("Torque outside observed range (3.8-76.6)")
+
+    return True
