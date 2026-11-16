@@ -1,6 +1,8 @@
 """Shared, leakage-safe helpers for AI4I machine-failure notebooks."""
 from pathlib import Path
 import pandas as pd
+import numpy as np
+
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
@@ -110,14 +112,45 @@ def evaluate_classifier(model, X_test, y_test, threshold=0.5):
     return pd.DataFrame({"Metric": list(scores), "Score": list(scores.values())}), predictions, probabilities
 
 
-def validate_machine_inputs(sample):
-    wear = sample["Tool wear [min]"].iloc[0]
-    torque = sample["Torque [Nm]"].iloc[0]
+def validate_machine_inputs(sample, limits):
 
-    if not 0 <= wear <= 253:
-        raise ValueError("Tool wear outside observed range (0-253)")
+    for col, bounds in limits.items():
 
-    if not 3.8 <= torque <= 76.6:
-        raise ValueError("Torque outside observed range (3.8-76.6)")
+        if col not in sample:
+            raise ValueError(f"Missing input: {col}")
+
+        value = sample[col]
+
+        if (
+            isinstance(value, (bool, np.bool_))
+            or not isinstance(value, (int, float, np.number))
+            or not np.isfinite(value)
+        ):
+            raise ValueError(
+                f"{col} must be a finite numeric value"
+            )
+
+        if not bounds["min"] <= value <= bounds["max"]:
+            raise ValueError(
+                f"{col}: {value} outside observed range "
+                f"({bounds['min']:.2f}, {bounds['max']:.2f})"
+            )
 
     return True
+
+
+def calculate_hard_limits(X_train):
+    ''' Calculate the hard limits for numeric features based on the training data.'''
+    limits = {}
+
+    numeric_cols = X_train.select_dtypes(
+        include="number"
+    ).columns
+
+    for col in numeric_cols:
+        limits[col] = {
+            "min": X_train[col].min(),
+            "max": X_train[col].max()
+        }
+
+    return limits
