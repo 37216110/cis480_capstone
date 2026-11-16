@@ -139,18 +139,18 @@ def validate_machine_inputs(sample, limits):
     return True
 
 
-def calculate_hard_limits(X_train):
+def calculate_hard_limits(data):
     ''' Calculate the hard limits for numeric features based on the training data.'''
     limits = {}
 
-    numeric_cols = X_train.select_dtypes(
+    numeric_cols = data.select_dtypes(
         include="number"
     ).columns
 
     for col in numeric_cols:
         limits[col] = {
-            "min": X_train[col].min(),
-            "max": X_train[col].max()
+            "min": data[col].min(),
+            "max": data[col].max()
         }
 
     return limits
