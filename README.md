@@ -279,3 +279,49 @@ The dataset is publicly available and contains synthetic manufacturing equipment
 
 AI assistance does not replace the team's responsibility for validating results and documenting contributions.
 
+## Requirements
+
+- Python 3.10 or newer (recommended)
+- Jupyter Notebook (classic interface or Jupyter Notebook 7)
+- The project's `src/modeling/model_utils.py` module
+
+
+### Python libraries
+
+| Library | Used for |
+| --- | --- |
+| `numpy` | Numerical operations |
+| `pandas` | DataFrames and results |
+| `matplotlib` | Performance plots |
+| `scikit-learn` | Random Forest, cross-validation, evaluation, and feature importance |
+| `seaborn` | Boundary-testing heatmap |
+| `IPython` | Notebook display functions |
+| `ipykernel` | Jupyter Python kernel |
+
+Install the dependencies:
+
+```bash
+python -m pip install numpy pandas matplotlib scikit-learn seaborn ipython ipykernel
+```
+
+## Notebooks
+
+Four notebooks are provided. 
+The notebooks contain different machine learning models and data preprocessing approaches.
+These use the same AI4I dataset to investigate predicitve maintenance modeling for our project.
+
+| Notebook | Model Type | Data Processing |
+|---|---|---|
+| `random_forest.ipynb` | Random Forest | Original dataset |
+| `random_forest_no_inconsistent.ipynb` | Random Forest | Inconsistent records removed |
+| `logistic_regression.ipynb` | Logistic Regression | Original dataset |
+| `logistic_regression_no_inconsistent.ipynb` | Logistic Regression | Cleaned dataset |
+
+
+## Setup and execution
+
+1. Download or clone the complete project, including the notebooks and `src/modeling/model_utils.py`.
+2. In the browser-based Jupyter file list, open `notebooks/`, then open selected notebook.
+3. Choose **Run → Run All Cells** (or **Cell → Run All**, depending on your Jupyter version). Run the cells in order and review the metrics and plots.
+
+> **Important:** Start Jupyter Notebook from the project root or a subdirectory of it. The notebook searches upward for `src/modeling/model_utils.py`.
