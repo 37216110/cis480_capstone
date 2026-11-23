@@ -1,9 +1,9 @@
-# cis480_capstone
+# **cis480_capstone**
 Predictive Maintenance & Machine Failure Analysis
 
-# SIPJOLT – Predictive Maintenance Analytics
+# **SIPJOLT – Predictive Maintenance Analytics**
 
-## Project Overview
+## **Project Overview**
 
 SIPJOLT is a predictive maintenance analytics project developed as part of CIS480 Capstone. The goal is to explore how machine learning and data visualization can help identify potential equipment failures before they occur.
 
@@ -11,7 +11,7 @@ Our team developed and evaluated machine learning models using manufacturing equ
 
 The project focuses on supporting data-driven maintenance decisions while recognizing the limitations of predictive models.
 
-## Project Objectives
+## **Project Objectives**
 
 The primary objectives of this project are to:
 
@@ -22,7 +22,7 @@ The primary objectives of this project are to:
 - Test model behavior under different operating conditions.
 - Identify limitations, risks, and opportunities for future improvements.
 
-## Dataset
+## **Dataset**
 
 This project uses the **AI4I 2020 Predictive Maintenance Dataset** from the UCI Machine Learning Repository.
 
@@ -36,7 +36,7 @@ The dataset contains 10,000 synthetic manufacturing observations and includes th
 - Product type
 - Machine failure indicators
 
-### Data Preparation
+### **Data Preparation**
 
 During preprocessing, our team identified and removed 27 observations containing inconsistent failure labels.
 
@@ -51,7 +51,7 @@ This resulted in:
 
 The cleaned dataset was used to evaluate updated versions of our classification models.
 
-## Methods and Tools
+## **Methods and Tools**
 
 The project uses the following technologies:
 
@@ -61,7 +61,7 @@ The project uses the following technologies:
 - **Tableau:** Exploratory data visualization.
 - **GitHub:** Version control, documentation, and project evidence.
 
-### Machine Learning Models
+### **Machine Learning Models**
 
 We evaluated two classification approaches:
 
@@ -71,7 +71,7 @@ We evaluated two classification approaches:
 
 Random Forest was selected as the preferred candidate because it detected a substantially larger proportion of actual failures.
 
-## Model Performance
+## **Model Performance**
 
 The following results are based on the cleaned dataset.
 
@@ -83,7 +83,7 @@ The following results are based on the cleaned dataset.
 | F1 Score | 71.23% | 27.16% |
 | False-Positive Rate | 1.45% | 0.21% |
 
-### Performance Evaluation
+### **Performance Evaluation**
 
 Because machine failures are relatively uncommon, accuracy alone is not sufficient to evaluate model performance.
 
@@ -98,11 +98,11 @@ The cleaned Random Forest model met both thresholds.
 
 These thresholds are intended for project evaluation and do not establish that the model is ready for operational deployment.
 
-### Modeling Evidence
+### **Modeling Evidence**
 
 Modeling notebooks and evaluation results are available in the [modeling directory](https://github.com/37216110/cis480_capstone/tree/main/notebooks/modeling).
 
-## Boundary Testing
+## **Boundary Testing**
 
 During Week 11, the team expanded its evaluation by examining how model predictions respond to different operating conditions.
 
@@ -113,7 +113,7 @@ The boundary testing focused on combinations of:
 
 Heatmaps were created to visualize predicted machine-failure probabilities across different combinations of these measurements.
 
-### Key Observations
+### **Key Observations**
 
 The boundary-testing visualizations demonstrate that predicted failure probabilities can change significantly as operating conditions vary.
 
@@ -125,7 +125,7 @@ The tests also highlight the importance of examining model behavior near the bou
 
 The boundary tests provide evidence about model behavior under the tested conditions, but they do not establish that the predictions are accurate outside the training data distribution.
 
-## Data Visualizations
+## **Data Visualizations**
 
 Tableau was used to explore relationships between manufacturing operating conditions.
 
@@ -140,11 +140,11 @@ These visualizations support exploratory analysis and help identify differences 
 
 However, descriptive visualizations do not independently establish the causes of equipment failures or validate model predictions.
 
-## Project Limitations
+## **Project Limitations**
 
 The project has several important limitations that should be considered when interpreting its findings.
 
-### 1. Synthetic Data
+### **1. Synthetic Data**
 
 The dataset contains simulated manufacturing observations rather than measurements collected from actual equipment.
 
@@ -152,7 +152,7 @@ Although synthetic data is useful for developing and testing models, it may not 
 
 Model performance on synthetic data cannot guarantee similar performance in an actual manufacturing environment.
 
-### 2. Class Imbalance
+### **2. Class Imbalance**
 
 Machine failures represent a small percentage of the dataset.
 
@@ -160,7 +160,7 @@ This imbalance means that a model can achieve high overall accuracy while failin
 
 For this reason, recall, precision, and false-positive rate are emphasized alongside accuracy.
 
-### 3. Missed Failures and False Alarms
+### **3. Missed Failures and False Alarms**
 
 The Random Forest model does not identify every actual failure.
 
@@ -173,19 +173,19 @@ Based on the cleaned test dataset:
 
 Missed failures could result in unexpected equipment downtime, while false alarms could lead to unnecessary inspections and increased maintenance costs.
 
-### 4. Boundary Behavior
+### **4. Boundary Behavior**
 
 Model predictions may become unreliable when operating conditions approach or exceed the ranges represented in the training dataset.
 
 Boundary testing helps identify potentially sensitive regions, but additional validation is required to determine whether the predictions are reliable.
 
-### 5. Generalizability
+### **5. Generalizability**
 
 The models were evaluated using a single synthetic dataset.
 
 Performance may differ across manufacturing environments, equipment types, operating conditions, and failure patterns.
 
-### 6. Data Cleaning Comparisons
+### **6. Data Cleaning Comparisons**
 
 The original and cleaned datasets were evaluated using different train/test splits.
 
@@ -193,7 +193,7 @@ Although performance improved after removing inconsistent observations, the resu
 
 A controlled comparison using matched splits would provide stronger evidence.
 
-## Future Work
+## **Future Work**
 
 The team identified three prioritized improvements based on expected value, feasibility, and risk.
 
@@ -203,13 +203,13 @@ The team identified three prioritized improvements based on expected value, feas
 | 2 | Cross-validation and model tuning | High | Medium | Medium |
 | 3 | Additional feature testing and model comparisons | Medium | High | Low |
 
-### Priority 1: Expand Boundary Testing
+### **Priority 1: Expand Boundary Testing**
 
 Additional boundary testing should evaluate how predictions respond to changes in rotational speed, temperature, torque, and tool wear.
 
 This would help identify unexpected predictions and potentially unstable behavior under extreme operating conditions.
 
-### Priority 2: Cross-Validation and Model Tuning
+### **Priority 2: Cross-Validation and Model Tuning**
 
 Future work should evaluate model performance across multiple training and validation splits.
 
@@ -217,13 +217,13 @@ This would provide stronger evidence about the consistency of recall, precision,
 
 Additional hyperparameter tuning could also be used to evaluate whether model performance can be improved.
 
-### Priority 3: Additional Feature Testing and Model Comparisons
+### **Priority 3: Additional Feature Testing and Model Comparisons**
 
 Future improvements could include evaluating additional derived features and comparing how different models respond to extreme operating conditions.
 
 This would help determine whether alternative feature combinations improve predictive performance or model interpretability.
 
-## Responsible Technology and Intended Use
+## **Responsible Technology and Intended Use**
 
 This project is intended for:
 
@@ -232,7 +232,7 @@ This project is intended for:
 - Comparing machine learning classification methods.
 - Understanding relationships between operating conditions and predicted equipment failures.
 
-### Prohibited Uses
+### **Prohibited Uses**
 
 The model should not be used for:
 
@@ -242,7 +242,7 @@ The model should not be used for:
 - Making operational decisions based solely on model predictions.
 - Production deployment without additional real-world validation.
 
-### Human Oversight
+### **Human Oversight**
 
 Any future operational implementation should require qualified personnel to review model predictions before taking action.
 
@@ -250,7 +250,7 @@ The model should support human decision-making rather than replace it.
 
 If the model cannot produce a reliable prediction, the system should not treat that uncertainty as confirmation that equipment is safe.
 
-## Team Contributions
+## **Team Contributions**
 
 | Team Member | Primary Contributions |
 |---|---|
@@ -259,7 +259,7 @@ If the model cannot produce a reliable prediction, the system should not treat t
 | Wynn | Model interpretation, impact evaluation, risk assessment, limitations, and future work |
 | Zach | Tableau visualizations and exploratory analysis |
 
-## Repository and Supporting Evidence
+## **Repository and Supporting Evidence**
 
 The repository contains the project's modeling notebooks, documentation, and supporting analysis.
 
@@ -271,7 +271,7 @@ Key resources:
 
 Additional boundary-testing evidence and issue documentation will be linked once committed.
 
-## Data Source
+## **Data Source**
 
 UCI Machine Learning Repository — AI4I 2020 Predictive Maintenance Dataset.
 
@@ -279,14 +279,14 @@ The dataset is publicly available and contains synthetic manufacturing equipment
 
 AI assistance does not replace the team's responsibility for validating results and documenting contributions.
 
-## Requirements
+## **Requirements**
 
 - Python 3.10 or newer (recommended)
 - Jupyter Notebook (classic interface or Jupyter Notebook 7)
 - The project's `src/modeling/model_utils.py` module
 
 
-### Python libraries
+### **Python libraries**
 
 | Library | Used for |
 | --- | --- |
@@ -304,11 +304,11 @@ Install the dependencies:
 python -m pip install numpy pandas matplotlib scikit-learn seaborn ipython ipykernel
 ```
 
-## Notebooks
+## **Notebooks**
 
 Four notebooks are provided. 
 The notebooks contain different machine learning models and data preprocessing approaches.
-These use the same AI4I dataset to investigate predicitve maintenance modeling for our project.
+These use the same AI4I dataset to investigate predictive maintenance modeling for our project.
 
 | Notebook | Model Type | Data Processing |
 |---|---|---|
@@ -318,10 +318,11 @@ These use the same AI4I dataset to investigate predicitve maintenance modeling f
 | `logistic_regression_no_inconsistent.ipynb` | Logistic Regression | Cleaned dataset |
 
 
-## Setup and execution
+## **Setup and execution**
 
 1. Download or clone the complete project, including the notebooks and `src/modeling/model_utils.py`.
-2. In the browser-based Jupyter file list, open `notebooks/`, then open selected notebook.
-3. Choose **Run → Run All Cells** (or **Cell → Run All**, depending on your Jupyter version). Run the cells in order and review the metrics and plots.
+2. In the browser-based Jupyter file list, open `notebooks/modeling/`, then open the selected notebook.
+3. Before rerunning the notebook, clear the existing outputs from all cells.
+4. Choose **Run → Run All Cells** (or **Cell → Run All**, depending on your Jupyter version). Run the cells in order and review the metrics and plots.
 
 > **Important:** Start Jupyter Notebook from the project root or a subdirectory of it. The notebook searches upward for `src/modeling/model_utils.py`.
